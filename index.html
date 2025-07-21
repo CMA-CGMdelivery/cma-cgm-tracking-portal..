@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMA CGM Tracking Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #002e6d;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .tracking-dashboard {
+      background-color: #ffffff;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tracking-dashboard input[type="text"] {
+      padding: 12px;
+      width: 60%;
+      border: 2px solid #002e6d;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .tracking-dashboard button {
+      padding: 12px 20px;
+      background-color: #002e6d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      margin-left: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .loader {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #002e6d;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .info-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px auto;
+      background-color: rgba(0, 46, 109, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .info-box {
+      width: 48%;
+      padding: 20px;
+      background-color: white;
+      border: 2px solid #002e6d;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      animation: bounce 1s infinite alternate;
+    }
+
+    .info-box h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .info-box h3 span {
+      margin-right: 10px;
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0px);
+      }
+      to {
+        transform: translateY(-4px);
+      }
+    }
+
+    table {
+      width: 80%;
+      margin: 0 auto 30px auto;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .progress-bar {
+      width: 80%;
+      background-color: #ddd;
+      margin: 30px auto;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 35%;
+      width: 80%;
+      background-color: #002e6d;
+      text-align: center;
+      color: white;
+      line-height: 2.5;
+      font-weight: bold;
+    }
+
+    iframe {
+      display: block;
+      width: 90%;
+      height: 400px;
+      margin: 30px auto;
+      border: 2px solid #002e6d;
+      border-radius: 12px;
+    }
+
+    .print-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #002e6d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #002e6d;
+      color: white;
+      font-weight: bold;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CMA CGM Tracking Portal</h1>
+  </header>
+
+  <div class="tracking-dashboard">
+    <h2>Enter Your Tracking Code</h2>
+    <input type="text" id="trackInput" placeholder="Enter tracking code..." />
+    <button onclick="trackNow()">Track</button>
+    <div id="loader" class="loader" style="display:none;"></div>
+  </div>
+
+  <div id="trackingDetails" style="display:none;">
+    <div class="info-container">
+      <div class="info-box">
+        <h3><span>📤</span>Sender Information</h3>
+        <p><strong>Name:</strong> Min Jun</p>
+        <p><strong>Address:</strong> London</p>
+        <p><strong>Email:</strong> mjun2327@gmail.com</p>
+        <p><strong>Phone:</strong> +44 7985 293148</p>
+      </div>
+      <div class="info-box">
+        <h3><span>📥</span>Receiver Information</h3>
+        <p><strong>Name:</strong> Nancy Zuniga</p>
+        <p><strong>Address:</strong> Cra7#18-78 Comerico Istmina neighborhood, Colombia</p>
+        <p><strong>Email:</strong> nancyzof21@gmail.com</p>
+        <p><strong>Phone:</strong> +57 319 744 9283</p>
+      </div>
+    </div>
+
+    <table>
+      <tr><th>Package Weight</th><th>Destination</th><th>Mode</th><th>Delivery Date</th></tr>
+      <tr><td>23kg</td><td>Colombia</td><td>Freight</td><td>21st July 2025</td></tr>
+    </table>
+
+    <div class="progress-bar">
+      <div class="progress-bar-fill">Custom 80%</div>
+    </div>
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d63613.392488252674!2d-74.15714411881322!3d4.696435153127823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x8e3f9aee56a60f5f%3A0xe3f97f11e6d3e369!2sEl%20Dorado%20International%20Airport%2C%20Av.%20El%20Dorado%2C%20Bogot%C3%A1%2C%20Colombia!3m2!1d4.70159!2d-74.1469!4m5!1s0x8e490f7e56c7e2f9%3A0xf7452d3cbb5cf0fc!2sCra.%207%20%2318-78%2C%20Istmina%2C%20Choc%C3%B3%2C%20Colombia!3m2!1d5.1616!2d-76.6839!5e0!3m2!1sen!2sco!4v1721550000000!5m2!1sen!2sco"></iframe>
+
+    <button class="print-btn" onclick="window.print()">Print</button>
+  </div>
+
+  <footer>
+    THANKS FOR USING CMA-CGM
+  </footer>
+
+  <script>
+    function trackNow() {
+      const input = document.getElementById('trackInput').value.trim().toUpperCase();
+      const loader = document.getElementById('loader');
+      if (input === "CMA-CGM8321CO-NZ") {
+        loader.style.display = 'block';
+        setTimeout(() => {
+          loader.style.display = 'none';
+          document.getElementById('trackingDetails').style.display = 'block';
+        }, 2000);
+      } else {
+        alert("Tracking code not found.");
+      }
+    }
+  </script>
+</body>
+</html>
